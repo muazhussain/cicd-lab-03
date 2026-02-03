@@ -19,7 +19,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build Docker Image
-        run: docker build -t myginx:test . 
+        run: docker build -t myginx:test .  
       - name: Test docker image
         run: | 
           docker run -d -p 8080:80 --name test-nginx mynginx:test
