@@ -22,7 +22,7 @@ jobs:
         run: docker build -t myginx:test .
       - name: Test docker image
         run: | 
-          docker run -d -p 8080:80 --name test-nginx mynginx:test
+          docker run -d -p 8080:80 --name test-nginx ${{ secrets.DOCKER_USERNAME }}/mynginx:latest
           sleep 5
           curl http://lcoalhost:8080 | grep "Hello from Github Actions"
           docker stop test-nginx
