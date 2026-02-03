@@ -24,7 +24,7 @@ jobs:
         run: |
           docker run -d -p 8080:80 --name test-nginx mynginx:${{ github.sha }}
           sleep 5
-          curl http://test-nginx:8080 | grep "Hello from Github Actions"
+          curl http://localhost:8080 | grep "Hello from Github Actions"
           docker stop test-nginx
       - name: Push to DockerHub
         run: |
