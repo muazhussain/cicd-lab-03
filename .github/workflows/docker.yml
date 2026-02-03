@@ -19,15 +19,15 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build Docker Image
-        run: docker build -t myginx:test .
+        run: docker build -t myginx:${{ github.sha }} .
+      - name: Push to DockerHub
+        run: |
+          docker tag mynginx:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/myginx:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/myginx:${{ github.sha }}
       - name: Test docker image
-        run: | 
-          docker run -d -p 8080:80 --name test-nginx ${{ secrets.DOCKER_USERNAME }}/mynginx:latest
+        run: |
+          docker run -d -p 8080:80 --name test-nginx ${{ secrets.DOCKER_USERNAME }}/myginx:${{ github.sha }}
           sleep 5
           curl http://lcoalhost:8080 | grep "Hello from Github Actions"
           docker stop test-nginx
-      - name: Push to DockerHub
-        run: |
-          docker tag mynginx:test ${{ secrets.DOCKER_USERNAME }}/mynginx:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/mynginx:latest
           
