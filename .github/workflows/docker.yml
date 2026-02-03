@@ -29,5 +29,5 @@ jobs:
       - name: Push to DockerHub
         run: |
           docker tag mynginx:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/mynginx:${{ github.sha }}
-          docker push ${{ secrets.DOCKER_USERNAME }}/myginx:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/mynginx:${{ github.sha }}
           
